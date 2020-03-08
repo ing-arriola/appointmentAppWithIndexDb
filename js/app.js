@@ -7,5 +7,18 @@ const form=document.querySelector('form'),
       date=document.querySelector('#fecha'),
       hour=document.querySelector('#hora'),
       symphtoms=document.querySelector('#sintomas'),
-      meetings=document.querySelector('#citas'),
+      appointment=document.querySelector('#citas'),
       headManage=document.querySelector('#administra')
+
+document.addEventListener('DOMContentLoaded',()=>{
+    let DBCreator=window.indexedDB.open('appointment',1)
+    DBCreator.onerror=()=>{
+        console.log('There was an error')
+    }
+    DBCreator.onsuccess=()=>{
+        console.log('Success')
+        DB=DBCreator
+        console.log(DB)
+    }
+    
+})
