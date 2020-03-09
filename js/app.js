@@ -15,10 +15,18 @@ document.addEventListener('DOMContentLoaded',()=>{
     DBCreator.onerror=()=>{
         console.log('There was an error')
     }
-    DBCreator.onsuccess=()=>{
+    DBCreator.onsuccess=function(){
         console.log('Success')
-        DB=DBCreator
+        DB=DBCreator.result
         console.log(DB)
+    }
+
+    DBCreator.onupgradeneeded=function (e) {
+        let db=e.target.result
+        let objectStore=db.createObjectStore('appointment',{keyPath:'key',autoIncrement:true})
+        objectStore.createIndex('pet','pet',{unique:false})
+        
     }
     
 })
+
