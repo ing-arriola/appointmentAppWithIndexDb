@@ -2,7 +2,7 @@ let DB
 
 const form=document.querySelector('form'),
       petName=document.querySelector('#mascota'),
-      customerName=document.querySelector('#ciente'),
+      customerName=document.querySelector('#cliente'),
       phone=document.querySelector('#telefono'),
       date=document.querySelector('#fecha'),
       hour=document.querySelector('#hora'),
@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded',()=>{
         let db=e.target.result
         let objectStore=db.createObjectStore('appointment',{keyPath:'key',autoIncrement:true})
         objectStore.createIndex('pet','pet',{unique:false})
+        objectStore.createIndex('cliente','cliente',{unique:false})
+        objectStore.createIndex('telefono','telefono',{unique:false})
+        objectStore.createIndex('fecha','fecha',{unique:false})
+        objectStore.createIndex('hora','hora',{unique:false})
+        objectStore.createIndex('sintomas','sintomas',{unique:false})
         
     }
     
