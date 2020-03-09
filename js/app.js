@@ -6,7 +6,7 @@ const form=document.querySelector('form'),
       phone=document.querySelector('#telefono'),
       date=document.querySelector('#fecha'),
       hour=document.querySelector('#hora'),
-      symphtoms=document.querySelector('#sintomas'),
+      symptom=document.querySelector('#sintomas'),
       appointment=document.querySelector('#citas'),
       headManage=document.querySelector('#administra')
 
@@ -25,13 +25,28 @@ document.addEventListener('DOMContentLoaded',()=>{
         let db=e.target.result
         let objectStore=db.createObjectStore('appointment',{keyPath:'key',autoIncrement:true})
         objectStore.createIndex('pet','pet',{unique:false})
-        objectStore.createIndex('cliente','cliente',{unique:false})
-        objectStore.createIndex('telefono','telefono',{unique:false})
-        objectStore.createIndex('fecha','fecha',{unique:false})
-        objectStore.createIndex('hora','hora',{unique:false})
-        objectStore.createIndex('sintomas','sintomas',{unique:false})
+        objectStore.createIndex('customer','customer',{unique:false})
+        objectStore.createIndex('phone','phone',{unique:false})
+        objectStore.createIndex('date','date',{unique:false})
+        objectStore.createIndex('hour','hour',{unique:false})
+        objectStore.createIndex('symptom','symptom',{unique:false})
         
     }
     
 })
+
+form.addEventListener('submit',addData)
+
+function addData(e){
+    e.preventDefault()
+    let newAppointment={
+        pet:petName.value ,
+        customer:customerName.value,
+        phone:phone.value,
+        date:date.value,
+        hour:hour.value,
+        symptom:symptom.value
+    }
+    console.log(newAppointment)
+}
 
