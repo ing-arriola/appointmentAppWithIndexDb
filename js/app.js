@@ -47,6 +47,21 @@ function addData(e){
         hour:hour.value,
         symptom:symptom.value
     }
-    console.log(newAppointment)
+    //console.log(newAppointment)
+    let transaction=DB.transaction(['appointment'],'readwrite')
+    let objectStore=transaction.objectStore('appointment')
+    let query=objectStore.add(newAppointment)
+
+    console.log(query)
+
+    query.onsuccess=()=>{
+        form.reset()
+    }
+    transaction.oncomplete=()=>{
+        console.log('OK!!')
+    }
+    transaction.onerror=()=>{
+        console.log('sorry for you')
+    }
 }
 
