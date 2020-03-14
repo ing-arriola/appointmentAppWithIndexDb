@@ -51,14 +51,13 @@ function addData(e){
     let objectStore=transaction.objectStore('appointment')//This allows insert data on DB
     let query=objectStore.add(newAppointment)
 
-    console.log(query)
+    
     //When the appointment successfully insert data, the form will be reset
     query.onsuccess=()=>{
         form.reset()
     }
     //Show message when the query is complete
     transaction.oncomplete=()=>{
-        console.log('OK!!')
         showData()
     }
     transaction.onerror=()=>{
@@ -76,7 +75,7 @@ function showData(){
     objectStore.openCursor().onsuccess=function(e){
         //cursor will get the indicated position
         let cursor=e.target.result
-        console.log(cursor)
+        
         if(cursor){
             let appointmentHTML=document.createElement('li')
             appointmentHTML.setAttribute('data-cita-id',cursor.value.key)
@@ -112,6 +111,16 @@ function showData(){
 
             cursor.continue()
 
+        }else{
+            if (!appointment.firstChild) {
+                headManage.textContent='Add appointments to begin'
+                let collection=document.createElement('p')
+                collection.classList.add('text-center')
+                collection.textContent='There are data yet'
+                appointment.appendChild(collection)
+            } else {
+                headManage.textContent='Manage your appointments'
+            }
         }
     }
 
