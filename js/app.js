@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     DBCreator.onsuccess=function(){
         DB=DBCreator.result
-        console.log('ke pedo')
         showData()
     }
 
@@ -60,6 +59,7 @@ function addData(e){
     //Show message when the query is complete
     transaction.oncomplete=()=>{
         console.log('OK!!')
+        showData()
     }
     transaction.onerror=()=>{
         console.log('sorry for you')
@@ -84,14 +84,34 @@ function showData(){
 
             appointmentHTML.innerHTML=`
                 <p class="font-weigth-bold">
-                PET: <span class="font-weigth-normal">
+                Pet: <span class="font-weigth-normal">
                 ${cursor.value.pet}</span> 
+                </p>
+                <p class="font-weigth-bold">
+                Customer: <span class="font-weigth-normal">
+                ${cursor.value.customer}</span> 
+                </p>
+                <p class="font-weigth-bold">
+                Phone: <span class="font-weigth-normal">
+                ${cursor.value.phone}</span> 
+                </p>
+                <p class="font-weigth-bold">
+                Date: <span class="font-weigth-normal">
+                ${cursor.value.date}</span> 
+                </p>
+                <p class="font-weigth-bold">
+                Hour: <span class="font-weigth-normal">
+                ${cursor.value.hour}</span> 
+                </p>
+                <p class="font-weigth-bold">
+                Symptom: <span class="font-weigth-normal">
+                ${cursor.value.symptom}</span> 
                 </p>
             `
             appointment.appendChild(appointmentHTML)
 
             cursor.continue()
-            
+
         }
     }
 
