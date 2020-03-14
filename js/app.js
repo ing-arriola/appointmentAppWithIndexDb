@@ -115,20 +115,33 @@ function showData(){
             appointment.appendChild(appointmentHTML)
             cursor.continue()
         }else{
-            if (!appointment.firstChild) {
-                headManage.textContent='Add appointments to begin'
-                let collection=document.createElement('p')
-                collection.classList.add('text-center')
-                collection.textContent='There are data yet'
-                appointment.appendChild(collection)
-            } else {
-                headManage.textContent='Manage your appointments'
-            }
+            manageAppointmentsHeader()
         }
     }
 
 }
 
 function deleteAppointment(e){
-    console.log(e.target.parentElement)
+    let appointmentId=Number(e.target.parentElement.getAttribute('data-cita-id'))
+    
+    let transaction=DB.transaction(['appointment'],'readwrite')
+    let objectStore=transaction.objectStore('appointment')//This allows insert data on DB
+    let query=objectStore.delete(appointmentId)
+
+    transaction.oncomplete=()=>{
+        e.target.parentElement.parentElement.removeChild(e.target.parentElement)
+        manageAppointmentsHeader()   
+    }
+}
+
+function manageAppointmentsHeader(){
+    if (!appointment.firstChild) {
+        headManage.textContent='Add appointments to begin'
+        let collection=document.createElement('p')
+        collection.classList.add('text-center')
+        collection.textContent='There are data yet'
+        appointment.appendChild(collection)
+    } else {
+        headManage.textContent='Manage your appointments'
+    }
 }
