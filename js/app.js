@@ -107,10 +107,13 @@ function showData(){
                 ${cursor.value.symptom}</span> 
                 </p>
             `
+            const deleteButton=document.createElement('button')
+            deleteButton.classList.add('borrar','btn','btn-danger')
+            deleteButton.innerHTML='<span aria-hidden="true">x</span>'
+            deleteButton.onclick=deleteAppointment
+            appointment.appendChild(deleteButton)
             appointment.appendChild(appointmentHTML)
-
             cursor.continue()
-
         }else{
             if (!appointment.firstChild) {
                 headManage.textContent='Add appointments to begin'
@@ -126,3 +129,6 @@ function showData(){
 
 }
 
+function deleteAppointment(e){
+    console.log(e.target)
+}
