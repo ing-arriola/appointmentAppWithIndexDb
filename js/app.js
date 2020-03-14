@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded',()=>{
         console.log('There was an error')
     }
     DBCreator.onsuccess=function(){
-        console.log('Success')
         DB=DBCreator.result
-        console.log(DB)
+        console.log('ke pedo')
+        showData()
     }
 
     DBCreator.onupgradeneeded=function (e) {
@@ -49,19 +49,51 @@ function addData(e){
     }
     //console.log(newAppointment)
     let transaction=DB.transaction(['appointment'],'readwrite')
-    let objectStore=transaction.objectStore('appointment')
+    let objectStore=transaction.objectStore('appointment')//This allows insert data on DB
     let query=objectStore.add(newAppointment)
 
     console.log(query)
-
+    //When the appointment successfully insert data, the form will be reset
     query.onsuccess=()=>{
         form.reset()
     }
+    //Show message when the query is complete
     transaction.oncomplete=()=>{
         console.log('OK!!')
     }
     transaction.onerror=()=>{
         console.log('sorry for you')
     }
+}
+
+function showData(){
+    //Clean last appointments
+    while(appointment.firstChild){
+        appointment.removeChild(appointment.firstChild)
+    }
+    let objectStore=DB.transaction('appointment').objectStore('appointment')
+
+    objectStore.openCursor().onsuccess=function(e){
+        //cursor will get the indicated position
+        let cursor=e.target.result
+        console.log(cursor)
+        if(cursor){
+            let appointmentHTML=document.createElement('li')
+            appointmentHTML.setAttribute('data-cita-id',cursor.value.key)
+            appointmentHTML.classList.add('list-group-item')
+
+            appointmentHTML.innerHTML=`
+                <p class="font-weigth-bold">
+                PET: <span class="font-weigth-normal">
+                ${cursor.value.pet}</span> 
+                </p>
+            `
+            appointment.appendChild(appointmentHTML)
+
+            cursor.continue()
+            
+        }
+    }
+
 }
 
