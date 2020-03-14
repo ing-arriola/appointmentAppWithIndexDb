@@ -36,3 +36,6 @@ html {
   textarea {
       height: 200px!important;
   }
+  .borrar{
+    width: 100px;
+  }

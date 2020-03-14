@@ -109,9 +109,9 @@ function showData(){
             `
             const deleteButton=document.createElement('button')
             deleteButton.classList.add('borrar','btn','btn-danger')
-            deleteButton.innerHTML='<span aria-hidden="true">x</span>'
+            deleteButton.innerHTML='<span aria-hidden="true">Delete</span>'
             deleteButton.onclick=deleteAppointment
-            appointment.appendChild(deleteButton)
+            appointmentHTML.appendChild(deleteButton)
             appointment.appendChild(appointmentHTML)
             cursor.continue()
         }else{
@@ -130,5 +130,5 @@ function showData(){
 }
 
 function deleteAppointment(e){
-    console.log(e.target)
+    console.log(e.target.parentElement)
 }
